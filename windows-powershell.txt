@@ -1,0 +1,48 @@
+#-------------------------------------------------------------------------------------------------------------------------
+#===TASK1: Change passwords for multiple users using powershell
+#-------------------------------------------------------------------------------------------------------------------------
+#---STEP 1: Create password variable with the password you want to set
+$Password = Read-Host -AsSecureString
+
+#---STEP 2: One Liner to change passwords for multiple users
+#---Method 1 - This method uses a foreach loop. You must add each user name as follows
+#---@('username1','username2','etc') - [WARNING] this only works on powershell 4.0 and up
+#---To see which version you have run the following: Get-Host
+@('willy','nilly').Foreach({New-LocalUser $_ -Password $Password})
+
+#-------------------------------------------------------------------------------------------------------------------------
+#===TASK2: Find all files with a certain file extension (e.g., *.mp4, *.mp3)
+#-------------------------------------------------------------------------------------------------------------------------
+#---STEP 1: Search for files that end in .mp4
+Get-Childitem –Path C:\ -Include *.mp4 -File -Recurse -ErrorAction SilentlyContinue
+
+#---STEP 2: To send results to a new file.
+Get-Childitem –Path C:\ -Include *.mp4 -File -Recurse -ErrorAction SilentlyContinue | Out-File -FilePath .\mp4s.txt -Append
+
+#---STEP 3: To delete all files ending in .mp4
+Get-Childitem –Path C:\ -Include *.mp4 -File -Recurse -ErrorAction SilentlyContinue | Remove-Item -force
+
+#-------------------------------------------------------------------------------------------------------------------------
+#===ALTERNATE METHODS
+#-------------------------------------------------------------------------------------------------------------------------
+#create an empty array
+$userArray = @()
+
+#Add users to the $userArray
+$userArray += 'lucy','billy'
+
+#-------------------------------------------------------------------------------------------------------------------------
+#===Additional powershell commands to get familiar with
+#-------------------------------------------------------------------------------------------------------------------------
+# To get the output of a cndlet to page. Example here is using getting all the process in memory, Formatting the data,
+# then making the ouput easy to manage with the "Out-Host -Paging" command
+Get-Process | Format-List | Out-Host -Paging
+
+#to view available cmdlets
+Get-Command | more
+
+#To send any output to null
+Get-Command | Out-Null
+
+#Create a file
+New-Item -Path . -Name "testfile1.mp4" -ItemType "file"
