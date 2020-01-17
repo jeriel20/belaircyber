@@ -8,7 +8,8 @@ $Password = Read-Host -AsSecureString
 #---Method 1 - This method uses a foreach loop. You must add each user name as follows
 #---@('username1','username2','etc') - [WARNING] this only works on powershell 4.0 and up
 #---To see which version you have run the following: Get-Host
-@('willy','nilly').Foreach({New-LocalUser $_ -Password $Password})
+#
+@('username1','username2','etc').Foreach({Set-LocalUser $_ -Password $Password})
 
 #-------------------------------------------------------------------------------------------------------------------------
 #===TASK2: Find all files with a certain file extension (e.g., *.mp4, *.mp3)
